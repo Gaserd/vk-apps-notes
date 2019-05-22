@@ -1,5 +1,5 @@
 import React from 'react'
-import { PanelHeader, FormLayout, Textarea, Input, FixedLayout, Button, Div, platform, ANDROID, FormStatus } from '@vkontakte/vkui'
+import { PanelHeader, FormLayout, Textarea, FixedLayout, Button, Div, platform, ANDROID, FormStatus } from '@vkontakte/vkui'
 import '@vkontakte/vkui/dist/vkui.css'
 import PanelHeaderBack from '@vkontakte/vkui/dist/components/PanelHeaderBack/PanelHeaderBack'
 import Icon24Done from '@vkontakte/icons/dist/24/done'
@@ -12,7 +12,6 @@ class EditTask extends React.Component {
 
 		this.state = {
 			id : null,
-			name : '',
 			text : '',
 			error : false
 		};
@@ -31,24 +30,20 @@ class EditTask extends React.Component {
 
 		let {
 			id,
-			name,
 			text
 		} = this.state
 
-		if (name !== '' && text !== '') {
+		if (text !== '') {
 			this.setState({ error : false })
 			const tasks = this.props.tasks
-			this.props.dispatch('tasks/edit', ({ tasks }, { id, name, text }))
+			let task = { id, text }
+			const user_id = this.props.user.id
+			this.props.dispatch('tasks/api/edit', ({ tasks }, { task, user_id }))
 			router.navigate('task', { id : id })
         } else {
 			this.setState({ error : true })
 		}
 
-	}
-
-	onChangeNameTask = (e) => {
-		const name = e.target.value
-		this.setState({ name })
 	}
 
 	onChangeTextTask = (e) => {
@@ -82,12 +77,6 @@ class EditTask extends React.Component {
 								Заполните все поля
 							</FormStatus>
 						}
-						<Input 
-							onChange={this.onChangeNameTask}
-							type='text'
-							value={this.state.name}
-							placeholder='Напиши, как называется задача' 
-						/>
 						<Textarea 
 							onChange={this.onChangeTextTask}
 							value={this.state.text}

@@ -15,6 +15,9 @@ const Tasks = (props) => {
 
         const { dispatch, tasks } = useStoreon('tasks')
         const osname = platform()
+        const user_id = props.user.id
+
+        console.log(tasks)
 
 		return (
 			<div>
@@ -30,23 +33,24 @@ const Tasks = (props) => {
                         </HeaderButton>
                     }
                 >
-                    Задачи
+                    Заметки
                 </PanelHeader>
                 <List>
                     {
                         tasks.map((task, index) => (
                             <Cell
-                                multiline
                                 expandable
                                 removable={removable}
                                 key={index}
-                                onRemove={() => dispatch('tasks/delete', ({ tasks }, task.id))}
+                                onRemove={() => dispatch('tasks/api/delete', ({ tasks }, {
+                                    task, user_id
+                                }))}
                                 onClick={()=> {
                                         router.navigate('task', { id : task.id })
                                     } 
                                 }
                             >
-                                {task.name}
+                                {task.text}
                             </Cell>
                         ))
                     }

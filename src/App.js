@@ -10,6 +10,8 @@ import Icon24Write from '@vkontakte/icons/dist/24/write'
 import { RouteNode } from 'react-router5'
 import Icon24Delete from '@vkontakte/icons/dist/24/delete'
 import './custom.css'
+import connect from 'storeon/react/connect'
+import VKUIconnect from '@vkontakte/vkui-connect'
 
 class App extends React.Component {
 	constructor(props) {
@@ -17,11 +19,40 @@ class App extends React.Component {
 
 		this.state = {
 			currentTaskId : null,
-			removable : false
+			removable : false,
+			user : {
+				id : 1
+			}
 		}
 	}
 
 	onRemovableTasks = () => this.setState({ removable : !this.state.removable })
+
+	componentDidMount() {
+		VKUIconnect.subscribe((e) => {
+			switch (e.detail.type) {
+				case 'VKWebAppGetUserInfoResult':
+					this.setState({ user: e.detail.data });
+					let id = e.detail.data.id
+					this.props.dispatch('tasks/api/get', 
+						(	
+							{ id }
+						)
+					)
+					break;
+				default:
+					console.log(e.detail.type);
+			}
+		});
+		VKUIconnect.send('VKWebAppGetUserInfo', {});
+
+		let id = this.state.user.id
+		this.props.dispatch('tasks/api/get', 
+						(	
+							{ id }
+						)
+					)
+	}
 
 	render() {
 		let {
@@ -38,6 +69,7 @@ class App extends React.Component {
 				<View activePanel={activePanel} id='tasksView'>
 					<Panel id='tasks'>
 						<Tasks 
+							user={this.state.user}
 							router={router}
 							removable={this.state.removable}
 							onRemovableTasks={this.onRemovableTasks}
@@ -60,7 +92,7 @@ class App extends React.Component {
 										size="xl"
 										onClick={()=>router.navigate('add')}
 									>
-										Новая задача
+										Новая заметка
 									</Button>
 								</Div>
 							}
@@ -113,6 +145,7 @@ class App extends React.Component {
 						<EditTask 
 							router={router}
 							route={route}
+							user={this.state.user}
 						/>
 					</Panel>
 
@@ -120,6 +153,7 @@ class App extends React.Component {
 				<View activePanel={activePanel} id='addView'>
 					<Panel id='add' theme="white">
 							<AddTask 
+								user={this.state.user}
 								router={router}
 							/>
 					</Panel>
@@ -129,8 +163,7 @@ class App extends React.Component {
 	}
 }
 
-export default (props) => (
+export default connect('tasks', (props) => (
     <RouteNode nodeName="">
         {({ route }) => <App route={route} {...props}/>}
-    </RouteNode>
-)
+    </RouteNode>))

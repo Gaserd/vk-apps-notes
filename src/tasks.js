@@ -1,38 +1,71 @@
+//localhost:8082
+//'https://azshara-api.com'
+const API = 'http://localhost:8082'
+
 export default store => {
-    store.on('@init', () => ({ tasks: [ 
-            {	
-                id : 1,
-                name : 'Домашнее задание',
-                text : 'Сделать математику к школе'
-            },
-            {
-                id : 2,
-                name : 'Выпить воду',
-                text : 'Буду пить воду каждый час'
-            },
-            {
-                id : 3,
-                name : 'Написать Васе',
-                text : 'Надо написать Васе, чтобы он написал Свете'
-            }
-        ] 
-    }))
+    store.on('@init', () => {
+        return { tasks : [] }
+    })
+
+    store.on('tasks/get', ({ tasks }, { tsks }) => {
+        return { tasks : tsks }
+    })
+
+    store.on('tasks/api/get', ({ tasks }, { id }) => {
+        fetch(`${API}/notes/${id}`)
+        .then(res => res.json())
+        .then(data => {
+            let tsks = data.notes
+            store.dispatch('tasks/get', { tsks })
+        })
+    })
   
-    store.on('tasks/add', ({ tasks }, task) => {
-        task.id = tasks.length + 1
+    store.on('tasks/api/add', ({ tasks }, task) => {
+
+        fetch(`${API}/add`, {
+            method : 'POST',
+            body : JSON.stringify(task),
+            headers: { 'Content-Type': 'application/json' }
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+        })
         return { tasks: tasks.concat([task]) }
     })
 
-    store.on('tasks/delete', ({ tasks }, id) => {
+    store.on('tasks/api/delete', ({ tasks }, { task, user_id }) => {
+
+        fetch(`${API}/delete`, {
+            method : 'POST',
+            body : JSON.stringify({
+                id : task.id,
+                user_id : user_id
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+
+        const id = task.id
         return { tasks: tasks.filter((task) => task.id !== id) }
     })
 
-    store.on('tasks/edit', ({ tasks }, editTask ) => {
-        let newTasks = tasks.map((task) => {
-			if (task.id === editTask.id) {
-				task = editTask
+    store.on('tasks/api/edit', ({ tasks }, { task, user_id } ) => {
+
+        fetch(`${API}/edit`, {
+            method : 'POST',
+            body : JSON.stringify({
+                id : task.id,
+                text : task.text,
+                user_id : user_id
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+
+        let newTasks = tasks.map((tsk) => {
+			if (tsk.id === task.id) {
+				tsk = task
 			}
-			return task
+			return tsk
 		})
 		return { tasks : newTasks }
     })
