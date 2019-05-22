@@ -45,13 +45,6 @@ class App extends React.Component {
 			}
 		});
 		VKUIconnect.send('VKWebAppGetUserInfo', {});
-
-		let id = this.state.user.id
-		this.props.dispatch('tasks/api/get', 
-						(	
-							{ id }
-						)
-					)
 	}
 
 	render() {

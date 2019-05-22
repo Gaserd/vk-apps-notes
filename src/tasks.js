@@ -1,6 +1,6 @@
 //localhost:8082
 //'https://azshara-api.com'
-const API = 'http://localhost:8082'
+const API = 'https://azshara-api.com'
 
 export default store => {
     store.on('@init', () => {
