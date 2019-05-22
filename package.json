@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "homepage": "https://gaserd.github.io/vk-apps-todo/",
+  "homepage": "https://gaserd.github.io/vk-apps-notes/",
   "scripts": {
     "start": "cross-env PORT=10888 react-scripts start",
     "build": "react-scripts build",
