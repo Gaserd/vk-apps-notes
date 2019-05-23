@@ -1,5 +1,5 @@
 import React from 'react'
-import { PanelHeader, Header, Div, Group } from '@vkontakte/vkui'
+import { PanelHeader, Div, Group } from '@vkontakte/vkui'
 import PanelHeaderBack from '@vkontakte/vkui/dist/components/PanelHeaderBack/PanelHeaderBack'
 import useStoreon from 'storeon/react'
 
@@ -18,14 +18,15 @@ function Task(props) {
 					/>
 				}
 			>
-            Задача
+            Заметка
             </PanelHeader>
 			{
 				typeof task !== 'undefined' &&
-				<Group>
-					<Header>{task.name}</Header>
-					<Div>{task.text}</Div>
-				</Group>
+					<Group>
+						<Div style={{whiteSpace : 'pre-line'}}>
+							{task.text}
+						</Div>
+					</Group>
 			}
         </div>
 	)
