@@ -54,7 +54,7 @@ class App extends React.Component {
 		} = this.props
 
 		const osname = platform()
-		const activeView = (route.name === 'add') ? 'addView' : 'tasksView'
+		const activeView = 'tasksView'
 		const activePanel = route.name
 
 		return (
@@ -142,14 +142,13 @@ class App extends React.Component {
 						/>
 					</Panel>
 
-				</View>
-				<View activePanel={activePanel} id='addView'>
 					<Panel id='add' theme="white">
 							<AddTask 
 								user={this.state.user}
 								router={router}
 							/>
 					</Panel>
+
 				</View>
 			</Root>
 		)

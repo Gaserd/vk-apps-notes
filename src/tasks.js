@@ -7,7 +7,7 @@ export default store => {
         return { tasks : [] }
     })
 
-    store.on('tasks/get', ({ tasks }, { tsks }) => {
+    store.on('tasks/save', ({ tasks }, { tsks }) => {
         return { tasks : tsks }
     })
 
@@ -16,7 +16,7 @@ export default store => {
         .then(res => res.json())
         .then(data => {
             let tsks = data.notes
-            store.dispatch('tasks/get', { tsks })
+            store.dispatch('tasks/save', { tsks })
         })
     })
   
@@ -29,9 +29,12 @@ export default store => {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
+            if (typeof data.id !== 'undefined') {
+                task.id = data.id
+                let tsks = tasks.concat([task])
+                store.dispatch('tasks/save', { tsks })
+            }
         })
-        return { tasks: tasks.concat([task]) }
     })
 
     store.on('tasks/api/delete', ({ tasks }, { task, user_id }) => {

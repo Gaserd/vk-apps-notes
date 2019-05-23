@@ -17,8 +17,6 @@ const Tasks = (props) => {
         const osname = platform()
         const user_id = props.user.id
 
-        console.log(tasks)
-
 		return (
 			<div>
                 <PanelHeader
