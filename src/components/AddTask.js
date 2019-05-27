@@ -4,8 +4,6 @@ import '@vkontakte/vkui/dist/vkui.css'
 import PanelHeaderBack from '@vkontakte/vkui/dist/components/PanelHeaderBack/PanelHeaderBack'
 import Icon24Done from '@vkontakte/icons/dist/24/done'
 import connect from 'storeon/react/connect'
-import Icon16Down from '@vkontakte/icons/dist/16/down';
-import VKUIconnect from '@vkontakte/vkui-connect'
 
 class AddTask extends React.Component {
 
@@ -96,35 +94,6 @@ class AddTask extends React.Component {
 							onChange={this.onChangeTextTask}
 							value={this.state.text}
 							placeholder='Здесь должен быть Ваш текст' />
-						<button
-							style={{
-								position : 'absolute',
-								bottom : 10,
-								right : 10,
-								borderRadius : 17,
-								border : 'none',
-								color : '#fff',
-								padding : 4,
-								backgroundColor : 'var(--button_primary_background)'
-							}}
-
-							onClick={() => {
-								VKUIconnect.send("VKWebAppOpenApp", {"app_id": 6959073, "location": `text=${encodeURI(this.state.text)}`});
-							}}
-						>
-							<Icon16Down 
-								style={{
-									transform: 'rotateZ(90deg)',
-								}}
-							/>
-							<Icon16Down 
-								style={{
-									transform: 'rotateZ(270deg)',
-									marginTop : '-9px',
-									marginLeft : 10
-								}}
-							/>
-						</button>
 					</div>
 				</FormLayout>
 				<FixedLayout vertical='bottom'>
