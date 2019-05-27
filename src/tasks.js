@@ -2,18 +2,36 @@
 //'https://azshara-api.com'
 const API = 'https://azshara-api.com'
 
+let allTasks = []
+let searchObject = { }
+
 export default store => {
     store.on('@init', () => {
         return { tasks : [] }
     })
 
     store.on('tasks/save', ({ tasks }, { tsks }) => {
+        allTasks = tsks
         return { tasks : tsks }
     })
 
     store.on('tasks/search', ({ tasks }, strSearch) => {
         const search = strSearch.toLowerCase();
-        return (strSearch.trim() == '') ? tasks : tasks.filter(({task}) => task.text.toLowerCase().indexOf(search) > -1);
+        if (strSearch.trim() === '') {
+            searchObject = { }
+            return { tasks : allTasks }
+        } else {
+            let t = []
+            if (typeof searchObject[search] == 'undefined') {
+                t = tasks.filter(task => task.text.toLowerCase().indexOf(search) > -1)
+                searchObject[search] = t
+            } else {
+                t = searchObject[search]
+            }
+            return { 
+                tasks : t
+            }
+        }
     })
 
     store.on('tasks/api/get', ({ tasks }, { id }) => {
@@ -21,6 +39,7 @@ export default store => {
         .then(res => res.json())
         .then(data => {
             let tsks = data.notes
+            allTasks = tsks
             store.dispatch('tasks/save', { tsks })
         })
     })
