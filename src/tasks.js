@@ -11,6 +11,11 @@ export default store => {
         return { tasks : tsks }
     })
 
+    store.on('tasks/search', ({ tasks }, strSearch) => {
+        const search = strSearch.toLowerCase();
+        return (strSearch.trim() == '') ? tasks : tasks.filter(({task}) => task.text.toLowerCase().indexOf(search) > -1);
+    })
+
     store.on('tasks/api/get', ({ tasks }, { id }) => {
         fetch(`${API}/notes/${id}`)
         .then(res => res.json())

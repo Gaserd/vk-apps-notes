@@ -1,5 +1,5 @@
 import React from 'react'
-import { List, Cell, PanelHeader, platform, ANDROID, HeaderButton } from '@vkontakte/vkui'
+import { List, Cell, PanelHeader, platform, ANDROID, HeaderButton, Search } from '@vkontakte/vkui'
 import '@vkontakte/vkui/dist/vkui.css'
 import Icon24Delete from '@vkontakte/icons/dist/24/delete'
 import useStoreon from 'storeon/react'
@@ -33,6 +33,9 @@ const Tasks = (props) => {
                 >
                     Заметки
                 </PanelHeader>
+                <Search 
+                    onChange={(strSearch) => dispatch('tasks/search',({ tasks }, strSearch ))}
+                />
                 <List>
                     {
                         tasks.map((task, index) => (

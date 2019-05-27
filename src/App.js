@@ -146,6 +146,7 @@ class App extends React.Component {
 							<AddTask 
 								user={this.state.user}
 								router={router}
+								route={route}
 							/>
 					</Panel>
 
