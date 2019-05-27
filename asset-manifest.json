@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/vk-apps-notes/static/css/main.c793b830.chunk.css",
-    "main.js": "/vk-apps-notes/static/js/main.3849aff9.chunk.js",
-    "main.js.map": "/vk-apps-notes/static/js/main.3849aff9.chunk.js.map",
+    "main.js": "/vk-apps-notes/static/js/main.84ff72ca.chunk.js",
+    "main.js.map": "/vk-apps-notes/static/js/main.84ff72ca.chunk.js.map",
     "runtime~main.js": "/vk-apps-notes/static/js/runtime~main.87ffbf5b.js",
     "runtime~main.js.map": "/vk-apps-notes/static/js/runtime~main.87ffbf5b.js.map",
     "static/css/2.b5769064.chunk.css": "/vk-apps-notes/static/css/2.b5769064.chunk.css",
-    "static/js/2.8223d1eb.chunk.js": "/vk-apps-notes/static/js/2.8223d1eb.chunk.js",
-    "static/js/2.8223d1eb.chunk.js.map": "/vk-apps-notes/static/js/2.8223d1eb.chunk.js.map",
+    "static/js/2.2e6949f9.chunk.js": "/vk-apps-notes/static/js/2.2e6949f9.chunk.js",
+    "static/js/2.2e6949f9.chunk.js.map": "/vk-apps-notes/static/js/2.2e6949f9.chunk.js.map",
     "index.html": "/vk-apps-notes/index.html",
-    "precache-manifest.f136b23f527ebb45c036d6296caddbea.js": "/vk-apps-notes/precache-manifest.f136b23f527ebb45c036d6296caddbea.js",
+    "precache-manifest.d6861b7e36a059ebd9059b41f1eedec5.js": "/vk-apps-notes/precache-manifest.d6861b7e36a059ebd9059b41f1eedec5.js",
     "service-worker.js": "/vk-apps-notes/service-worker.js",
     "static/css/2.b5769064.chunk.css.map": "/vk-apps-notes/static/css/2.b5769064.chunk.css.map",
     "static/css/main.c793b830.chunk.css.map": "/vk-apps-notes/static/css/main.c793b830.chunk.css.map"
