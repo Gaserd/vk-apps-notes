@@ -1,5 +1,5 @@
 import React from 'react'
-import { PanelHeader, FormLayout, Textarea, FixedLayout, Button, Div, platform, ANDROID, FormStatus } from '@vkontakte/vkui'
+import { PanelHeader, FormLayout, FixedLayout, Button, Div, platform, ANDROID, FormStatus } from '@vkontakte/vkui'
 import '@vkontakte/vkui/dist/vkui.css'
 import PanelHeaderBack from '@vkontakte/vkui/dist/components/PanelHeaderBack/PanelHeaderBack'
 import Icon24Done from '@vkontakte/icons/dist/24/done'
@@ -13,14 +13,16 @@ class EditTask extends React.Component {
 		this.state = {
 			id : null,
 			text : '',
-			error : false
+			error : false,
+			textareaHeight : 0
 		};
 	}
 
 	componentDidMount() {
 		const tasks = this.props.tasks
 		const task = tasks.filter((task) => task.id === Number(this.props.route.params.id))[0]
-		this.setState({ ...task })
+		const textareaHeight = window.document.body.offsetHeight * 0.8
+		this.setState({ ...task, textareaHeight })
 	}
 
 	onClickEditTask = () => {
@@ -77,10 +79,27 @@ class EditTask extends React.Component {
 								Заполните все поля
 							</FormStatus>
 						}
-						<Textarea 
-							onChange={this.onChangeTextTask}
-							value={this.state.text}
-							placeholder='Напиши, чтобы ты хотел сделать' />
+						<div
+						style={{
+							width: '100%',
+							height: this.state.textareaHeight,
+							boxSizing: 'border-box',
+							position : 'relative'
+						}}
+						>
+							<textarea 
+								style={{
+									border: 'none',
+									padding: 10,
+									fontSize: 16,
+									width: '100%',
+									height: this.state.textareaHeight,
+									boxSizing: 'border-box',
+								}}
+								onChange={this.onChangeTextTask}
+								value={this.state.text}
+								placeholder='Здесь должен быть Ваш текст' />
+						</div>
 					</FormLayout>
 					<FixedLayout vertical='bottom'>
 						{
